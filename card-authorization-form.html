@@ -530,8 +530,8 @@
             // Update CSS variables
             document.documentElement.style.setProperty('--primary-color', primaryColor);
 
-            // Update footer
-            document.getElementById('customFooter').innerHTML = 
+            // Update footer - use textContent to prevent XSS
+            document.getElementById('customFooter').textContent = 
                 `${companyName}, Member FDIC. Equal Housing Lender. Privacy Policy: www.${companyName.toLowerCase().replace(/\s+/g, '')}.com/privacy. Barcode for Audit. Confidential – Do Not Distribute.`;
 
             // Update acknowledgment
