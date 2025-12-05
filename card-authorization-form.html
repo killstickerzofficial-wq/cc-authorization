@@ -153,7 +153,7 @@
             letter-spacing: 0.8px;
         }
         
-        input[type="text"], input[type="date"], input[type="email"], select, textarea {
+        input[type="text"], input[type="date"], input[type="email"], input[type="password"], select, textarea {
             border: 2px solid #e0e0e0;
             padding: 12px 14px;
             font-size: 14px;
@@ -163,7 +163,7 @@
             font-family: inherit;
         }
         
-        input[type="text"]:focus, input[type="date"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+        input[type="text"]:focus, input[type="date"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-color, #003366);
             background-color: white;
@@ -359,61 +359,61 @@
         <form id="authForm">
             <div class="form-row">
                 <div class="form-group">
-                    <label>Form Number</label>
+                    <label class="form-label">Form Number</label>
                     <input type="text" id="formNumber" placeholder="AUTH-CNP-2023-XXXX">
                 </div>
                 <div class="form-group">
-                    <label>Date Prepared</label>
+                    <label class="form-label">Date Prepared</label>
                     <input type="date" id="datePrepared">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Authorization Reference Number</label>
+                    <label class="form-label">Authorization Reference Number</label>
                     <input type="text" id="refNumber" placeholder="SB-CNP-789012">
                 </div>
                 <div class="form-group">
-                    <label>Merchant Code</label>
+                    <label class="form-label">Merchant Code</label>
                     <input type="text" id="merchantCode" placeholder="MCC-7011 (Hotels and Motels)">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Cardholder Name</label>
+                    <label class="form-label">Cardholder Name</label>
                     <input type="text" id="cardholderName" placeholder="Full Name, e.g., John Doe">
                 </div>
                 <div class="form-group">
-                    <label>Business Affiliation</label>
+                    <label class="form-label">Business Affiliation</label>
                     <input type="text" id="businessAffiliation" placeholder="Company Name, e.g., XYZ Corporation">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Card Account Number</label>
+                    <label class="form-label">Card Account Number</label>
                     <input type="text" id="cardNumber" placeholder="**** **** **** 5678">
                 </div>
                 <div class="form-group">
-                    <label>Expiration Date</label>
+                    <label class="form-label">Expiration Date</label>
                     <input type="text" id="expDate" placeholder="MM/YY">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Card Verification Value (CVV)</label>
+                    <label class="form-label">Card Verification Value (CVV)</label>
                     <input type="password" id="cvv" placeholder="3-4 Digits" maxlength="4">
                 </div>
                 <div class="form-group">
-                    <label>Transaction Amount</label>
+                    <label class="form-label">Transaction Amount</label>
                     <input type="text" id="amount" placeholder="$[Amount]">
                 </div>
             </div>
 
             <div class="form-group full">
-                <label>Authorization Method Selected</label>
+                <label class="form-label">Authorization Method Selected</label>
                 <div class="checkbox-group">
                     <label class="checkbox-item">
                         <input type="checkbox" name="authMethod" value="forced"> Forced Authorization
@@ -428,7 +428,7 @@
             </div>
 
             <div class="form-group full">
-                <label>Transaction Summary (Business Hotel Stay)</label>
+                <label class="form-label">Transaction Summary (Business Hotel Stay)</label>
                 <textarea rows="5" id="transactionSummary" placeholder="Merchant Name:&#10;Description:&#10;Total Charges:&#10;Transaction Date/Time Requested:&#10;Purpose: Approved Business Expense..."></textarea>
             </div>
 
@@ -436,11 +436,11 @@
                 <div class="highlighted-title">🔒 Authorization Code Processing Instructions</div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Authorization Code</label>
+                        <label class="form-label">Authorization Code</label>
                         <input type="text" id="authCode" placeholder="AUTH-SB-456789" style="font-weight: bold; font-size: 16px; text-transform: uppercase;">
                     </div>
                     <div class="form-group">
-                        <label>Code Validity Period</label>
+                        <label class="form-label">Code Validity Period</label>
                         <input type="text" id="codeExpiry" placeholder="Expires [MM/DD/YYYY HH:MM] (10 minutes)">
                     </div>
                 </div>
@@ -456,33 +456,33 @@
             </div>
 
             <div class="form-group full">
-                <label>Voice Authorization Verification (If Applicable)</label>
+                <label class="form-label">Voice Authorization Verification (If Applicable)</label>
                 <textarea rows="3" id="voiceAuth" placeholder="Representative confirmed identity via: last 4 SSN, business EIN, card activation date..."></textarea>
             </div>
 
             <div class="form-group full">
-                <label>Cardholder and Business Entity Acknowledgment</label>
+                <label class="form-label">Cardholder and Business Entity Acknowledgment</label>
                 <textarea rows="4" id="acknowledgment" style="background: #f0f8f0; font-size: 12px; color: #2e7d32;">I/We hereby authorize this transaction for business purposes and confirm compliance with [Company Name]'s terms. This authorization is valid for 24 hours. For questions contact [Company Contact].</textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Authorized Representative Signature</label>
+                    <label class="form-label">Authorized Representative Signature</label>
                     <div class="signature-line">Sign above this line</div>
                 </div>
                 <div class="form-group">
-                    <label>Date</label>
+                    <label class="form-label">Date</label>
                     <div class="signature-line">MM/DD/YYYY</div>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Digital Signature Hash (SHA-256)</label>
+                    <label class="form-label">Digital Signature Hash (SHA-256)</label>
                     <input type="text" id="signatureHash" placeholder="[Insert 64-character hash]">
                 </div>
                 <div class="form-group">
-                    <label>Internal Reference</label>
+                    <label class="form-label">Internal Reference</label>
                     <input type="text" id="internalRef" placeholder="Your internal tracking number">
                 </div>
             </div>
@@ -551,8 +551,22 @@
         }
 
         function saveFormData() {
-            const formData = new FormData(document.getElementById('authForm'));
-            const data = Object.fromEntries(formData);
+            const form = document.getElementById('authForm');
+            const data = {};
+            
+            // Save text inputs, textareas, and dates
+            form.querySelectorAll('input[type="text"], input[type="date"], input[type="password"], textarea').forEach(el => {
+                if (el.id) data[el.id] = el.value;
+            });
+            
+            // Save checkboxes
+            form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+                if (el.name) {
+                    if (!data.checkboxes) data.checkboxes = {};
+                    data.checkboxes[el.value] = el.checked;
+                }
+            });
+            
             localStorage.setItem('authFormData', JSON.stringify(data));
             alert('✅ Form data saved locally! Use "Load Data" to restore.');
         }
@@ -561,10 +575,23 @@
             const saved = localStorage.getItem('authFormData');
             if (saved) {
                 const data = JSON.parse(saved);
+                
+                // Load text inputs, textareas, and dates
                 Object.keys(data).forEach(key => {
-                    const el = document.getElementById(key);
-                    if (el) el.value = data[key];
+                    if (key !== 'checkboxes') {
+                        const el = document.getElementById(key);
+                        if (el) el.value = data[key];
+                    }
                 });
+                
+                // Load checkboxes
+                if (data.checkboxes) {
+                    Object.keys(data.checkboxes).forEach(value => {
+                        const el = document.querySelector(`input[type="checkbox"][value="${value}"]`);
+                        if (el) el.checked = data.checkboxes[value];
+                    });
+                }
+                
                 alert('✅ Data loaded from local storage!');
             } else {
                 alert('No saved data found.');
