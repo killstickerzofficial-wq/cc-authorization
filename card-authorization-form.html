@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Authorization Form - Manual Authorization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+        }
+        
+        .customization-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .customization-panel h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .custom-input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .custom-input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+        
+        .custom-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+        }
+        
+        .apply-btn {
+            grid-column: span 2;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .apply-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            border-bottom: 4px solid var(--primary-color, #003366);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+        
+        .header .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: var(--primary-color, #003366);
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .header .subtitle {
+            color: var(--primary-color, #003366);
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .header .company-name {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .form-row.full, .form-row.three-col {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-row.three-col {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            font-weight: bold;
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        
+        input[type="text"], input[type="date"], input[type="email"], select, textarea {
+            border: 2px solid #e0e0e0;
+            padding: 12px 14px;
+            font-size: 14px;
+            background-color: #fafbfc;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        input[type="text"]:focus, input[type="date"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color, #003366);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(0,51,102,0.1);
+            transform: translateY(-1px);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color, #003366);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color, #003366);
+        }
+        
+        .highlighted-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+            border: 3px solid #2196f3;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.15);
+        }
+        
+        .highlighted-title {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 8px 8px 0 0;
+            letter-spacing: 0.5px;
+        }
+        
+        .security-badges {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: white;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 11px;
+            font-weight: bold;
+            border: 2px solid #2196f3;
+            color: #2196f3;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+            transition: transform 0.2s;
+        }
+        
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid #333;
+            height: 50px;
+            margin-top: 12px;
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .footer {
+            border-top: 2px solid #e0e0e0;
+            padding-top: 25px;
+            margin-top: 40px;
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 14px 40px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color, #003366), #001f3f);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,51,102,0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        @media print {
+            body { background-color: white; padding: 0; }
+            .container { box-shadow: none; padding: 20px; }
+            .customization-panel, .button-group { display: none !important; }
+            button { display: none !important; }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row, .custom-input-group { grid-template-columns: 1fr; }
+            .container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="customization-panel">
+            <h3>🎨 <strong>Customize Your Authorization Form</strong></h3>
+            <div class="custom-input-group">
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Company Logo URL</label>
+                    <input type="url" class="custom-input" id="logoUrl" placeholder="https://your-logo-url.com/logo.png">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Company Name</label>
+                    <input type="text" class="custom-input" id="companyName" placeholder="Your Company Name">
+                </div>
+            </div>
+            <div class="custom-input-group">
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Form Title</label>
+                    <input type="text" class="custom-input" id="formTitle" placeholder="Card Authorization Form – Manual Authorization">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Primary Color</label>
+                    <input type="color" class="custom-input" id="primaryColor" value="#003366">
+                </div>
+            </div>
+            <button class="apply-btn" onclick="applyCustomizations()">✨ Apply & Preview Live</button>
+        </div>
+
+        <div class="header" id="formHeader">
+            <img id="customLogo" src="" alt="Company Logo" class="logo" style="display: none;">
+            <h1 id="customTitle">Card Authorization Form – Manual Authorization</h1>
+            <p class="subtitle" id="customSubtitle">For Business Transactions (Card-Not-Present)</p>
+            <div class="company-name" id="companyDisplay">[Your Company Name]</div>
+        </div>
+        
+        <form id="authForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Form Number</label>
+                    <input type="text" id="formNumber" placeholder="AUTH-CNP-2023-XXXX">
+                </div>
+                <div class="form-group">
+                    <label>Date Prepared</label>
+                    <input type="date" id="datePrepared">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Authorization Reference Number</label>
+                    <input type="text" id="refNumber" placeholder="SB-CNP-789012">
+                </div>
+                <div class="form-group">
+                    <label>Merchant Code</label>
+                    <input type="text" id="merchantCode" placeholder="MCC-7011 (Hotels and Motels)">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Cardholder Name</label>
+                    <input type="text" id="cardholderName" placeholder="Full Name, e.g., John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Business Affiliation</label>
+                    <input type="text" id="businessAffiliation" placeholder="Company Name, e.g., XYZ Corporation">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Card Account Number</label>
+                    <input type="text" id="cardNumber" placeholder="**** **** **** 5678">
+                </div>
+                <div class="form-group">
+                    <label>Expiration Date</label>
+                    <input type="text" id="expDate" placeholder="MM/YY">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Card Verification Value (CVV)</label>
+                    <input type="password" id="cvv" placeholder="3-4 Digits" maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label>Transaction Amount</label>
+                    <input type="text" id="amount" placeholder="$[Amount]">
+                </div>
+            </div>
+
+            <div class="form-group full">
+                <label>Authorization Method Selected</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="authMethod" value="forced"> Forced Authorization
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="authMethod" value="manual"> Manual Authorization
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="authMethod" value="voice"> Voice Authorization (Recommended for Business Travel Disputes)
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group full">
+                <label>Transaction Summary (Business Hotel Stay)</label>
+                <textarea rows="5" id="transactionSummary" placeholder="Merchant Name:&#10;Description:&#10;Total Charges:&#10;Transaction Date/Time Requested:&#10;Purpose: Approved Business Expense..."></textarea>
+            </div>
+
+            <div class="highlighted-section">
+                <div class="highlighted-title">🔒 Authorization Code Processing Instructions</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Authorization Code</label>
+                        <input type="text" id="authCode" placeholder="AUTH-SB-456789" style="font-weight: bold; font-size: 16px; text-transform: uppercase;">
+                    </div>
+                    <div class="form-group">
+                        <label>Code Validity Period</label>
+                        <input type="text" id="codeExpiry" placeholder="Expires [MM/DD/YYYY HH:MM] (10 minutes)">
+                    </div>
+                </div>
+                <p style="margin: 15px 0; font-weight: 500; color: #d32f2f;">
+                    ⚠️ Use code within 10 minutes to prevent chargeback/decline. Enter into payment gateway immediately.
+                </p>
+                <div class="security-badges">
+                    <div class="badge">PCI DSS Level 1</div>
+                    <div class="badge">256-bit AES</div>
+                    <div class="badge">AVS + CVC</div>
+                    <div class="badge">Voiceprint Auth</div>
+                </div>
+            </div>
+
+            <div class="form-group full">
+                <label>Voice Authorization Verification (If Applicable)</label>
+                <textarea rows="3" id="voiceAuth" placeholder="Representative confirmed identity via: last 4 SSN, business EIN, card activation date..."></textarea>
+            </div>
+
+            <div class="form-group full">
+                <label>Cardholder and Business Entity Acknowledgment</label>
+                <textarea rows="4" id="acknowledgment" style="background: #f0f8f0; font-size: 12px; color: #2e7d32;">I/We hereby authorize this transaction for business purposes and confirm compliance with [Company Name]'s terms. This authorization is valid for 24 hours. For questions contact [Company Contact].</textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Authorized Representative Signature</label>
+                    <div class="signature-line">Sign above this line</div>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <div class="signature-line">MM/DD/YYYY</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Digital Signature Hash (SHA-256)</label>
+                    <input type="text" id="signatureHash" placeholder="[Insert 64-character hash]">
+                </div>
+                <div class="form-group">
+                    <label>Internal Reference</label>
+                    <input type="text" id="internalRef" placeholder="Your internal tracking number">
+                </div>
+            </div>
+        </form>
+
+        <div class="footer" id="customFooter">
+            [Your Company Name], Member FDIC. Equal Housing Lender. Privacy Policy: www.yourwebsite.com/privacy. Barcode for Audit. Confidential – Do Not Distribute.
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn-primary" onclick="window.print()">🖨️ Print Form</button>
+            <button type="button" class="btn-secondary" onclick="resetForm()">🔄 Clear All</button>
+            <button type="button" class="btn-success" onclick="saveFormData()">💾 Save Data</button>
+            <button type="button" class="btn-success" onclick="loadFormData()">📂 Load Data</button>
+        </div>
+    </div>
+
+    <script>
+        // Auto-set today's date
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('datePrepared').valueAsDate = new Date();
+            loadFormData(); // Load any saved data
+        });
+
+        function applyCustomizations() {
+            const logoUrl = document.getElementById('logoUrl').value.trim();
+            const companyName = document.getElementById('companyName').value.trim() || 'Your Company';
+            const formTitle = document.getElementById('formTitle').value.trim() || 'Card Authorization Form – Manual Authorization';
+            const primaryColor = document.getElementById('primaryColor').value;
+
+            // Update logo
+            const logoImg = document.getElementById('customLogo');
+            if (logoUrl) {
+                logoImg.src = logoUrl;
+                logoImg.style.display = 'block';
+                logoImg.onerror = function() { this.style.display = 'none'; };
+            } else {
+                logoImg.style.display = 'none';
+            }
+
+            // Update header
+            document.getElementById('customTitle').textContent = formTitle;
+            document.getElementById('companyDisplay').textContent = companyName;
+
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary-color', primaryColor);
+
+            // Update footer
+            document.getElementById('customFooter').innerHTML = 
+                `${companyName}, Member FDIC. Equal Housing Lender. Privacy Policy: www.${companyName.toLowerCase().replace(/\s+/g, '')}.com/privacy. Barcode for Audit. Confidential – Do Not Distribute.`;
+
+            // Update acknowledgment
+            const ack = document.getElementById('acknowledgment');
+            ack.value = `I/We hereby authorize this transaction for business purposes and confirm compliance with ${companyName}'s terms. This authorization is valid for 24 hours. For questions contact ${companyName} Card Services.`;
+
+            alert('✅ Customizations applied! Preview looks great.');
+        }
+
+        function resetForm() {
+            if (confirm('Clear all form data? This cannot be undone.')) {
+                document.getElementById('authForm').reset();
+                document.getElementById('datePrepared').valueAsDate = new Date();
+                localStorage.removeItem('authFormData');
+                alert('✅ Form cleared!');
+            }
+        }
+
+        function saveFormData() {
+            const formData = new FormData(document.getElementById('authForm'));
+            const data = Object.fromEntries(formData);
+            localStorage.setItem('authFormData', JSON.stringify(data));
+            alert('✅ Form data saved locally! Use "Load Data" to restore.');
+        }
+
+        function loadFormData() {
+            const saved = localStorage.getItem('authFormData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(key => {
+                    const el = document.getElementById(key);
+                    if (el) el.value = data[key];
+                });
+                alert('✅ Data loaded from local storage!');
+            } else {
+                alert('No saved data found.');
+            }
+        }
+
+        // Auto-save on input (optional)
+        document.getElementById('authForm').addEventListener('input', function() {
+            // Uncomment to auto-save every change
+            // saveFormData();
+        });
+    </script>
+</body>
+</html>
