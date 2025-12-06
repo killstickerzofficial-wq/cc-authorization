@@ -1,7 +1,7 @@
 // Auto-set today's date
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('datePrepared').valueAsDate = new Date();
-    loadFormData(); // Load any saved data
+    loadFormData(false); // Load any saved data silently on page load
 });
 
 function applyCustomizations() {
@@ -68,7 +68,7 @@ function saveFormData() {
     alert('✅ Form data saved locally! Use "Load Data" to restore.');
 }
 
-function loadFormData() {
+function loadFormData(showAlert = true) {
     const saved = localStorage.getItem('authFormData');
     if (saved) {
         const data = JSON.parse(saved);
@@ -89,8 +89,10 @@ function loadFormData() {
             });
         }
         
-        alert('✅ Data loaded from local storage!');
-    } else {
+        if (showAlert) {
+            alert('✅ Data loaded from local storage!');
+        }
+    } else if (showAlert) {
         alert('No saved data found.');
     }
 }
