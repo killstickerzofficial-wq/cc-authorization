@@ -48,7 +48,15 @@ function validateForm(event) {
         const selectedMonth = parseInt(expiryMonth);
         
         if (selectedYear < currentYear || (selectedYear === currentYear && selectedMonth < currentMonth)) {
-            alert('Card has expired. Please use a valid card.');
+            // Show error message in a more accessible way
+            const expiryError = document.createElement('div');
+            expiryError.className = 'error-message show';
+            expiryError.setAttribute('role', 'alert');
+            expiryError.textContent = 'Card has expired. Please use a valid card.';
+            const expiryMonthGroup = document.getElementById('expiry-month').parentElement;
+            if (!expiryMonthGroup.querySelector('.error-message')) {
+                expiryMonthGroup.appendChild(expiryError);
+            }
             isValid = false;
         }
     }
@@ -60,7 +68,8 @@ function validateForm(event) {
     }
     
     // Validate amount
-    if (parseFloat(amount) <= 0 || isNaN(parseFloat(amount))) {
+    const parsedAmount = parseFloat(amount);
+    if (parsedAmount <= 0 || isNaN(parsedAmount)) {
         document.getElementById('amount-error').classList.add('show');
         isValid = false;
     }
@@ -68,7 +77,7 @@ function validateForm(event) {
     if (isValid) {
         addTransaction(cardholderName, cardNumber, amount);
         form.reset();
-        alert('Transaction authorized successfully!');
+        showSuccessMessage('Transaction authorized successfully!');
     }
     
     return false;
@@ -103,6 +112,34 @@ function addTransaction(name, cardNumber, amount) {
 // Print form
 function printForm() {
     window.print();
+}
+
+// Show success message in an accessible way
+function showSuccessMessage(message) {
+    // Check if success message element already exists
+    let successDiv = document.getElementById('success-message');
+    
+    if (!successDiv) {
+        // Create success message element
+        successDiv = document.createElement('div');
+        successDiv.id = 'success-message';
+        successDiv.className = 'success-message';
+        successDiv.setAttribute('role', 'status');
+        successDiv.setAttribute('aria-live', 'polite');
+        
+        // Insert after form
+        const form = document.getElementById('card-form');
+        form.parentElement.insertBefore(successDiv, form.nextSibling);
+    }
+    
+    // Set message and show
+    successDiv.textContent = message;
+    successDiv.style.display = 'block';
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+        successDiv.style.display = 'none';
+    }, 5000);
 }
 
 // Initialize event listeners when DOM is loaded
@@ -177,11 +214,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputs = document.querySelectorAll('input, select');
     inputs.forEach(input => {
         input.addEventListener('input', function() {
-            const errorId = this.id.replace(/^(cardholder-name|card-number|cvv|amount)$/, '$1') + '-error';
-            const errorElement = document.getElementById(errorId);
-            if (errorElement) {
-                errorElement.classList.remove('show');
+            // Map input IDs to their corresponding error IDs
+            const errorIdMap = {
+                'cardholder-name': 'name-error',
+                'card-number': 'card-error',
+                'cvv': 'cvv-error',
+                'amount': 'amount-error'
+            };
+            
+            const errorId = errorIdMap[this.id];
+            if (errorId) {
+                const errorElement = document.getElementById(errorId);
+                if (errorElement) {
+                    errorElement.classList.remove('show');
+                }
             }
+            
+            // Also remove any dynamically added error messages in the parent
+            const dynamicErrors = this.parentElement.querySelectorAll('.error-message.show');
+            dynamicErrors.forEach(error => {
+                if (!error.id) { // Only remove dynamically added ones without IDs
+                    error.remove();
+                }
+            });
         });
     });
 });
