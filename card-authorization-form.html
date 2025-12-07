@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Authorization Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        #form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        #form-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        #card-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        #submit-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        #submit-btn:hover {
+            background: #5568d3;
+        }
+        
+        #print-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        
+        #print-btn:hover {
+            background: #218838;
+        }
+        
+        #transaction-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        
+        #transaction-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #transaction-list li {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        #navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        #navigation a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+    
+    <div id="form-container">
+        <h1 id="form-title">Card Authorization Form</h1>
+        
+        <form id="card-form" onsubmit="return validateForm(event)">
+            <div class="form-group">
+                <label for="cardholder-name">Cardholder Name:</label>
+                <input type="text" id="cardholder-name" name="cardholderName" required>
+                <span class="error-message" id="name-error">Please enter a valid name</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="cardNumber" pattern="[0-9]{16}" maxlength="16" required>
+                <span class="error-message" id="card-error">Please enter a valid 16-digit card number</span>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expiry-month">Expiry Month:</label>
+                    <select id="expiry-month" name="expiryMonth" required>
+                        <option value="">Select Month</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="expiry-year">Expiry Year:</label>
+                    <select id="expiry-year" name="expiryYear" required>
+                        <option value="">Select Year</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" pattern="[0-9]{3,4}" maxlength="4" required>
+                    <span class="error-message" id="cvv-error">Please enter a valid CVV</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" min="0.01" step="0.01" required>
+                <span class="error-message" id="amount-error">Please enter a valid amount</span>
+            </div>
+            
+            <button type="submit" id="submit-btn">Submit Authorization</button>
+            <button type="button" id="print-btn" onclick="printForm()">Print Form</button>
+        </form>
+        
+        <div id="transaction-section">
+            <h2>Recent Transactions</h2>
+            <ul id="transaction-list">
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('card-form');
+            const cardholderName = document.getElementById('cardholder-name').value;
+            const cardNumber = document.getElementById('card-number').value;
+            const cvv = document.getElementById('cvv').value;
+            const amount = document.getElementById('amount').value;
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            
+            let isValid = true;
+            
+            // Validate cardholder name
+            if (cardholderName.trim().length < 3) {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate card number
+            if (!/^[0-9]{16}$/.test(cardNumber)) {
+                document.getElementById('card-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate CVV
+            if (!/^[0-9]{3,4}$/.test(cvv)) {
+                document.getElementById('cvv-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate amount
+            if (parseFloat(amount) <= 0) {
+                document.getElementById('amount-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                addTransaction(cardholderName, cardNumber, amount);
+                form.reset();
+                alert('Transaction authorized successfully!');
+            }
+            
+            return false;
+        }
+        
+        function addTransaction(name, cardNumber, amount) {
+            const transactionList = document.getElementById('transaction-list');
+            const li = document.createElement('li');
+            const maskedCard = '**** **** **** ' + cardNumber.slice(-4);
+            const date = new Date().toLocaleString();
+            
+            li.innerHTML = '<strong>' + name + '</strong><br>' +
+                          'Card: ' + maskedCard + '<br>' +
+                          'Amount: $' + parseFloat(amount).toFixed(2) + '<br>' +
+                          'Date: ' + date;
+            
+            transactionList.insertBefore(li, transactionList.firstChild);
+        }
+        
+        function printForm() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
