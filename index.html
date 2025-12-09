@@ -3,137 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Secure card authorization form for processing payments">
-    <title>Card Authorization Form</title>
+    <title>Card Authorization Form - Manual Authorization</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <nav class="navigation" role="navigation" aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    
-    <main class="form-container" role="main">
-        <h1 class="form-title">Card Authorization Form</h1>
+    <div class="container">
+        <div class="customization-panel">
+            <h3>🎨 <strong>Customize Your Authorization Form</strong></h3>
+            <div class="custom-input-group">
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Company Logo URL</label>
+                    <input type="url" class="custom-input" id="logoUrl" placeholder="https://your-logo-url.com/logo.png">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Company Name</label>
+                    <input type="text" class="custom-input" id="companyName" placeholder="Your Company Name">
+                </div>
+            </div>
+            <div class="custom-input-group">
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Form Title</label>
+                    <input type="text" class="custom-input" id="formTitle" placeholder="Card Authorization Form – Manual Authorization">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Primary Color</label>
+                    <input type="color" class="custom-input" id="primaryColor" value="#003366">
+                </div>
+            </div>
+            <button class="apply-btn" onclick="applyCustomizations()">✨ Apply & Preview Live</button>
+        </div>
+
+        <div class="header" id="formHeader">
+            <img id="customLogo" src="" alt="Company Logo" class="logo" style="display: none;">
+            <h1 id="customTitle">Card Authorization Form – Manual Authorization</h1>
+            <p class="subtitle" id="customSubtitle">For Business Transactions (Card-Not-Present)</p>
+            <div class="company-name" id="companyDisplay">[Your Company Name]</div>
+        </div>
         
-        <form id="card-form" class="card-form" novalidate>
-            <div class="form-group">
-                <label for="cardholder-name">Cardholder Name:</label>
-                <input 
-                    type="text" 
-                    id="cardholder-name" 
-                    name="cardholderName" 
-                    aria-required="true"
-                    aria-describedby="name-error"
-                    required
-                    autocomplete="cc-name">
-                <span class="error-message" id="name-error" role="alert">Please enter a valid name</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="card-number">Card Number:</label>
-                <input 
-                    type="text" 
-                    id="card-number" 
-                    name="cardNumber" 
-                    pattern="[0-9]{16}" 
-                    maxlength="16" 
-                    aria-required="true"
-                    aria-describedby="card-error"
-                    required
-                    autocomplete="cc-number"
-                    inputmode="numeric">
-                <span class="error-message" id="card-error" role="alert">Please enter a valid 16-digit card number</span>
-            </div>
-            
             <div class="form-row">
                 <div class="form-group">
-                    <label for="expiry-month">Expiry Month:</label>
-                    <select 
-                        id="expiry-month" 
-                        name="expiryMonth" 
-                        aria-required="true"
-                        required
-                        autocomplete="cc-exp-month">
-                        <option value="">Select Month</option>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
+                    <label class="form-label">Form Number</label>
+                    <input type="text" id="formNumber" placeholder="AUTH-CNP-2023-XXXX">
                 </div>
-                
                 <div class="form-group">
-                    <label for="expiry-year">Expiry Year:</label>
-                    <select 
-                        id="expiry-year" 
-                        name="expiryYear" 
-                        aria-required="true"
-                        required
-                        autocomplete="cc-exp-year">
-                        <option value="">Select Year</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                        <option value="2028">2028</option>
-                        <option value="2029">2029</option>
-                        <option value="2030">2030</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="cvv">CVV:</label>
-                    <input 
-                        type="text" 
-                        id="cvv" 
-                        name="cvv" 
-                        pattern="[0-9]{3,4}" 
-                        maxlength="4" 
-                        aria-required="true"
-                        aria-describedby="cvv-error"
-                        required
-                        autocomplete="cc-csc"
-                        inputmode="numeric">
-                    <span class="error-message" id="cvv-error" role="alert">Please enter a valid CVV</span>
+                    <label class="form-label">Date Prepared</label>
+                    <input type="date" id="datePrepared">
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label for="amount">Amount:</label>
-                <input 
-                    type="number" 
-                    id="amount" 
-                    name="amount" 
-                    min="0.01" 
-                    step="0.01" 
-                    aria-required="true"
-                    aria-describedby="amount-error"
-                    required
-                    inputmode="decimal">
-                <span class="error-message" id="amount-error" role="alert">Please enter a valid amount</span>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Authorization Reference Number</label>
+                    <input type="text" id="refNumber" placeholder="SB-CNP-789012">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Merchant Code</label>
+                    <input type="text" id="merchantCode" placeholder="MCC-7011 (Hotels and Motels)">
+                </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Submit Authorization</button>
-            <button type="button" id="print-btn" class="btn btn-success">Print Form</button>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Cardholder Name</label>
+                    <input type="text" id="cardholderName" placeholder="Full Name, e.g., John Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Affiliation</label>
+                    <input type="text" id="businessAffiliation" placeholder="Company Name, e.g., XYZ Corporation">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Card Account Number</label>
+                    <input type="text" id="cardNumber" placeholder="**** **** **** 5678">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Expiration Date</label>
+                    <input type="text" id="expDate" placeholder="MM/YY">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Card Verification Value (CVV)</label>
+                    <input type="password" id="cvv" placeholder="3-4 Digits" maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Transaction Amount</label>
+                    <input type="text" id="amount" placeholder="$[Amount]">
+                </div>
+            </div>
+
+            <div class="form-group full">
+                <label class="form-label">Authorization Method Selected</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="authMethod" value="forced"> Forced Authorization
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="authMethod" value="manual"> Manual Authorization
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="authMethod" value="voice"> Voice Authorization (Recommended for Business Travel Disputes)
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group full">
+                <label class="form-label">Transaction Summary (Business Hotel Stay)</label>
+                <textarea rows="5" id="transactionSummary" placeholder="Merchant Name:&#10;Description:&#10;Total Charges:&#10;Transaction Date/Time Requested:&#10;Purpose: Approved Business Expense..."></textarea>
+            </div>
+
+            <div class="highlighted-section">
+                <div class="highlighted-title">🔒 Authorization Code Processing Instructions</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Authorization Code</label>
+                        <input type="text" id="authCode" placeholder="AUTH-SB-456789" style="font-weight: bold; font-size: 16px; text-transform: uppercase;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Code Validity Period</label>
+                        <input type="text" id="codeExpiry" placeholder="Expires [MM/DD/YYYY HH:MM] (10 minutes)">
+                    </div>
+                </div>
+                <p style="margin: 15px 0; font-weight: 500; color: #d32f2f;">
+                    ⚠️ Use code within 10 minutes to prevent chargeback/decline. Enter into payment gateway immediately.
+                </p>
+                <div class="security-badges">
+                    <div class="badge">PCI DSS Level 1</div>
+                    <div class="badge">256-bit AES</div>
+                    <div class="badge">AVS + CVC</div>
+                    <div class="badge">Voiceprint Auth</div>
+                </div>
+            </div>
+
+            <div class="form-group full">
+                <label class="form-label">Voice Authorization Verification (If Applicable)</label>
+                <textarea rows="3" id="voiceAuth" placeholder="Representative confirmed identity via: last 4 SSN, business EIN, card activation date..."></textarea>
+            </div>
+
+            <div class="form-group full">
+                <label class="form-label">Cardholder and Business Entity Acknowledgment</label>
+                <textarea rows="4" id="acknowledgment" style="background: #f0f8f0; font-size: 12px; color: #2e7d32;">I/We hereby authorize this transaction for business purposes and confirm compliance with [Company Name]'s terms. This authorization is valid for 24 hours. For questions contact [Company Contact].</textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Authorized Representative Signature</label>
+                    <div class="signature-line">Sign above this line</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <div class="signature-line">MM/DD/YYYY</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Digital Signature Hash (SHA-256)</label>
+                    <input type="text" id="signatureHash" placeholder="[Insert 64-character hash]">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Internal Reference</label>
+                    <input type="text" id="internalRef" placeholder="Your internal tracking number">
+                </div>
+            </div>
         </form>
-        
-        <section class="transaction-section" aria-label="Recent Transactions">
-            <h2>Recent Transactions</h2>
-            <ul id="transaction-list" class="transaction-list">
-                <li class="transaction-empty" id="transaction-empty">No transactions added yet.</li>
-            </ul>
-        </section>
-    </main>
-    
+
+        <div class="footer" id="customFooter">
+            [Your Company Name], Member FDIC. Equal Housing Lender. Privacy Policy: www.yourwebsite.com/privacy. Barcode for Audit. Confidential – Do Not Distribute.
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn-primary" onclick="window.print()">🖨️ Print Form</button>
+            <button type="button" class="btn-secondary" onclick="resetForm()">🔄 Clear All</button>
+            <button type="button" class="btn-success" onclick="saveFormData()">💾 Save Data</button>
+            <button type="button" class="btn-success" onclick="loadFormData()">📂 Load Data</button>
+        </div>
+    </div>
+
     <script src="scripts/app.js"></script>
 </body>
 </html>
