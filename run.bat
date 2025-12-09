@@ -19,10 +19,18 @@ REM Wait a moment then open browser
 timeout /t 2 /nobreak >nul
 start http://%HOST%:%PORT%/index.html
 
-REM Start Python HTTP server
-python -m http.server %PORT% 2>nul
+REM Start Python HTTP server (try python3 first, then python)
+python3 -m http.server %PORT%
 if errorlevel 1 (
-    python3 -m http.server %PORT%
+    echo Python3 not found, trying python...
+    python -m http.server %PORT%
+    if errorlevel 1 (
+        echo.
+        echo ❌ Python is not installed or http.server module is not available.
+        echo Please install Python 3 to run this script.
+        pause
+        exit /b 1
+    )
 )
 
 endlocal

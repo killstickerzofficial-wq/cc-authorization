@@ -6,14 +6,15 @@
 PORT=8080
 HOST="localhost"
 
-# Check if port is already in use
-if lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null 2>&1 ; then
-    echo "⚠️  Port $PORT is already in use. Trying an alternative port..."
-    PORT=8081
-    if lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null 2>&1 ; then
-        PORT=8082
+# Check if port is already in use and find available port
+while lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null 2>&1 ; do
+    echo "⚠️  Port $PORT is already in use. Trying port $((PORT + 1))..."
+    PORT=$((PORT + 1))
+    if [ $PORT -gt 8090 ]; then
+        echo "❌ Could not find an available port between 8080 and 8090."
+        exit 1
     fi
-fi
+done
 
 echo "🚀 Starting Card Authorization Form..."
 echo "📦 Server running at http://$HOST:$PORT"
@@ -48,5 +49,12 @@ open_browser() {
 # Open browser in background
 open_browser "http://$HOST:$PORT/index.html" &
 
-# Start Python HTTP server
-python3 -m http.server $PORT
+# Start Python HTTP server (try python3, fallback to python)
+if command -v python3 > /dev/null 2>&1; then
+    python3 -m http.server $PORT
+elif command -v python > /dev/null 2>&1; then
+    python -m http.server $PORT
+else
+    echo "❌ Python is not installed. Please install Python 3 to run this script."
+    exit 1
+fi
