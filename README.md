@@ -25,7 +25,7 @@ This repository contains a modularized browser-based HTML card authorization for
 
 - **Customizable Branding**: Add your company logo, name, and custom colors
 - **Complete Form Fields**: All necessary fields for card authorization
-- **Save/Load Functionality**: Save form data to browser local storage
+- **Save/Load Functionality**: Save non-sensitive form data (never full card number or CVV) to browser local storage
 - **Print Support**: Print-friendly layout for physical copies
 - **Security Features**: Includes authorization code processing, CVV protection, and more
 - **Responsive Design**: Works on desktop and mobile devices
