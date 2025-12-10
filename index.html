@@ -34,7 +34,7 @@
         </div>
 
         <div class="header" id="formHeader">
-            <img id="customLogo" src="" alt="Company Logo" class="logo" style="display: none;">
+            <img id="customLogo" src="" alt="" class="logo" style="display: none;">
             <h1 id="customTitle">Card Authorization Form – Manual Authorization</h1>
             <p class="subtitle" id="customSubtitle">For Business Transactions (Card-Not-Present)</p>
             <div class="company-name" id="companyDisplay">[Your Company Name]</div>
@@ -99,15 +99,12 @@
             <div class="form-group full">
                 <label class="form-label">Authorization Method Selected</label>
                 <div class="checkbox-group">
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="authMethod" value="forced"> Forced Authorization
-                    </label>
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="authMethod" value="manual"> Manual Authorization
-                    </label>
-                    <label class="checkbox-item">
-                        <input type="checkbox" name="authMethod" value="voice"> Voice Authorization (Recommended for Business Travel Disputes)
-                    </label>
+                    <input type="checkbox" id="auth-forced" name="authMethod" value="forced">
+                    <label class="checkbox-item" for="auth-forced">Forced Authorization</label>
+                    <input type="checkbox" id="auth-manual" name="authMethod" value="manual">
+                    <label class="checkbox-item" for="auth-manual">Manual Authorization</label>
+                    <input type="checkbox" id="auth-voice" name="authMethod" value="voice">
+                    <label class="checkbox-item" for="auth-voice">Voice Authorization (Recommended for Business Travel Disputes)</label>
                 </div>
             </div>
 
@@ -121,14 +118,14 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Authorization Code</label>
-                        <input type="text" id="authCode" placeholder="AUTH-SB-456789">
+                        <input type="text" id="authCode" placeholder="AUTH-SB-456789" style="font-weight: bold; font-size: 16px; text-transform: uppercase;">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Code Validity Period</label>
                         <input type="text" id="codeExpiry" placeholder="Expires [MM/DD/YYYY HH:MM] (10 minutes)">
                     </div>
                 </div>
-                <p class="warning-message">
+                <p style="margin: 15px 0; font-weight: 500; color: #d32f2f;">
                     ⚠️ Use code within 10 minutes to prevent chargeback/decline. Enter into payment gateway immediately.
                 </p>
                 <div class="security-badges">
@@ -146,7 +143,7 @@
 
             <div class="form-group full">
                 <label class="form-label">Cardholder and Business Entity Acknowledgment</label>
-                <textarea rows="4" id="acknowledgment">I/We hereby authorize this transaction for business purposes and confirm compliance with [Company Name]'s terms. This authorization is valid for 24 hours. For questions contact [Company Contact].</textarea>
+                <textarea rows="4" id="acknowledgment" style="background: #f0f8f0; font-size: 12px; color: #2e7d32;">I/We hereby authorize this transaction for business purposes and confirm compliance with [Company Name]'s terms. This authorization is valid for 24 hours. For questions contact [Company Contact].</textarea>
             </div>
 
             <div class="form-row">

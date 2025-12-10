@@ -2,12 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('datePrepared').valueAsDate = new Date();
     loadFormData(false); // Load any saved data silently on page load
-    
-    // Auto-save on input (optional)
-    document.getElementById('authForm').addEventListener('input', function() {
-        // Uncomment to auto-save every change
-        // saveFormData();
-    });
 });
 
 function applyCustomizations() {
@@ -102,3 +96,5 @@ function loadFormData(showAlert = true) {
         alert('No saved data found.');
     }
 }
+
+// Auto-save on input (optional)
