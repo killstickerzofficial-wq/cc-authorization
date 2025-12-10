@@ -98,7 +98,3 @@ function loadFormData(showAlert = true) {
 }
 
 // Auto-save on input (optional)
-document.getElementById('authForm').addEventListener('input', function() {
-    // Uncomment to auto-save every change
-    // saveFormData();
-});
